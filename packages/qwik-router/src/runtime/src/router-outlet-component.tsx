@@ -1,12 +1,5 @@
-import {
-  component$,
-  jsx,
-  type JSXNode,
-  SkipRender,
-  sync$,
-  useContext,
-  useServerData,
-} from '@qwik.dev/core';
+import { component$, SkipRender, sync$, useContext, useServerData } from '@qwik.dev/core';
+import { _jsxSorted, type JSXNodeInternal } from '@qwik.dev/core/internal';
 
 import { ContentInternalContext } from './contexts';
 import type { ClientSPAWindow } from './qwik-router-component';
@@ -23,12 +16,10 @@ export const RouterOutlet = component$(() => {
   const { value } = useContext(ContentInternalContext);
   if (value && value.length > 0) {
     const contentsLen = value.length;
-    let cmp: JSXNode | null = null;
+    let cmp: JSXNodeInternal | null = null;
     for (let i = contentsLen - 1; i >= 0; i--) {
       if (value[i].default) {
-        cmp = jsx(value[i].default as any, {
-          children: cmp,
-        });
+        cmp = _jsxSorted(value[i].default, null, null, cmp, 0, null);
       }
     }
     return (
